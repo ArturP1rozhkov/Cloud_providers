@@ -9,12 +9,19 @@ resource "yandex_resourcemanager_folder_iam_member" "ig-editor" {
   member    = "serviceAccount:${yandex_iam_service_account.ig-sa.id}"
 }
 
+resource "yandex_resourcemanager_folder_iam_member" "ig-alb-editor" {
+  folder_id = var.folder_id
+  role      = "alb.editor"
+  member    = "serviceAccount:${yandex_iam_service_account.ig-sa.id}"
+}
+
 resource "yandex_compute_instance_group" "lamp" {
   name               = "lamp-ig"
   folder_id          = var.folder_id
   service_account_id = yandex_iam_service_account.ig-sa.id
   depends_on = [
-    yandex_resourcemanager_folder_iam_member.ig-editor
+    yandex_resourcemanager_folder_iam_member.ig-editor,
+    yandex_resourcemanager_folder_iam_member.ig-alb-editor
   ]
 
   instance_template {
@@ -92,7 +99,8 @@ resource "yandex_compute_instance_group" "lamp" {
     }
   }
 
-  load_balancer {
-    target_group_name = "lamp-target-group"
+  application_load_balancer {
+    target_group_name        = "lamp-alb-target-group"
+    target_group_description = "Target group for LAMP Instance Group and ALB"
   }
 }
