@@ -1,12 +1,4 @@
----
-type: Курс по DevOPS Home Work
-module: Cloud providers
-lesson_no: 2
-lesson_theme: Балансировщики нагрузки
----
-> [!bookmark]
->
-> **Домашнее задание: <%+ tp.file.title %>**
+
 
 # Домашнее задание к занятию «Вычислительные мощности. Балансировщики нагрузки»
 ### Подготовка к выполнению задания
@@ -690,7 +682,3 @@ yc application-load-balancer load-balancer target-states \
 ![](<Pasted image 20260930220535.png>)
 Все работает как задумано. Задание выполнено.
 
-> [!calendar] Дата
-> **Добавлено:** 2026-09-30  11:12
-> **Изменено: **<%+ tp.file.last_modified_date("YYYY-MM-DD HH:mm") %>
-> **Тема задания:** <%+ tp.file.title %>
