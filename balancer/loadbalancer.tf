@@ -6,6 +6,10 @@ resource "yandex_lb_network_load_balancer" "lamp" {
     port        = 80
     target_port = 80
     protocol    = "tcp"
+
+    external_address_spec {
+      ip_version = "ipv4"
+    }
   }
 
   attached_target_group {

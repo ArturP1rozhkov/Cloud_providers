@@ -3,5 +3,9 @@ output "picture_url" {
 }
 
 output "load_balancer_public_ip" {
-  value = one([for l in yandex_lb_network_load_balancer.lamp.listener : one(l.external_address_spec[*].address)])
+  description = "Публичный IP сетевого балансировщика"
+  value = one([
+    for listener in yandex_lb_network_load_balancer.lamp.listener :
+    one(listener.external_address_spec[*].address)
+  ])
 }

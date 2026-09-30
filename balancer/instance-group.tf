@@ -42,16 +42,24 @@ resource "yandex_compute_instance_group" "lamp" {
       user-data = <<-EOF
         #cloud-config
         write_files:
-          - path: /var/www/html/index.php
+          - path: /var/www/html/index.html
+            permissions: "0644"
             content: |
-              <html>
-                <head><title>LAMP Instance Group</title></head>
-                <body>
-                  <h1>Homework Yandex Cloud networking</h1>
-                  <img src="https://storage.yandexcloud.net/${var.bucket_name}/lamp.png" alt="picture from bucket">
-                </body>
+              <!doctype html>
+              <html lang="ru">
+              <head>
+                <meta charset="utf-8">
+                <title>LAMP Instance Group</title>
+              </head>
+              <body>
+                <h1>Homework: Yandex Cloud networking</h1>
+                <p>Страница создана через cloud-init.</p>
+                <img
+                  src="https://storage.yandexcloud.net/${var.bucket_name}/lamp.png"
+                  alt="Картинка из Object Storage"
+                  style="max-width: 700px;">
+              </body>
               </html>
-            permissions: '0644'
       EOF
     }
   }
@@ -67,10 +75,10 @@ resource "yandex_compute_instance_group" "lamp" {
   }
 
   deploy_policy {
-    max_creating     = 3
-    max_deleting     = 3
-    max_expansion    = 3
-    max_unavailable  = 1
+    max_creating    = 3
+    max_deleting    = 3
+    max_expansion   = 3
+    max_unavailable = 1
   }
 
   health_check {
