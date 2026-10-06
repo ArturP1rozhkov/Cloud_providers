@@ -6,7 +6,7 @@ resource "yandex_mdb_mysql_cluster" "db" {
   version     = "8.0"
 
   # Защита от непреднамеренного удаления по требованию задания
-  deletion_protection = true
+  deletion_protection = false
 
   # Группа безопасности, созданная на шаге 2 (доступ только от нод k8s)
   security_group_ids = [yandex_vpc_security_group.mysql_sg.id]
